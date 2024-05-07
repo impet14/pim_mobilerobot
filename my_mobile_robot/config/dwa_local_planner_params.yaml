@@ -55,3 +55,5 @@ DWAPlannerROS:
   trans_stopped_vel: 0.01
 
   sim_period : 0.1
+  rot_stopped_vel: 0.005
+  trans_stopped_vel: 0.005
