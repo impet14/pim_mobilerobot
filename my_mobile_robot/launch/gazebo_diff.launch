@@ -11,23 +11,22 @@
     <arg name="robot_namespace" default="/"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="paused" value="$(arg paused)"/>
-        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
-        <arg name="gui" value="$(arg gui)"/>
-        <arg name="headless" value="$(arg headless)"/>
-        <arg name="debug" value="$(arg debug)"/>
-        <arg name="verbose" default="false"/>
-        <arg name="gui_required" value="$(arg gui_required)"/>
-
+        <arg name="world_name" value="$(find my_mobile_robot)/worlds/test.world" />
+        <arg name="paused" value="$(arg paused)" />
+        <arg name="use_sim_time" value="$(arg use_sim_time)" />
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="headless" value="$(arg headless)" />
+        <arg name="debug" value="$(arg debug)" />
+        <arg name="verbose" default="false" />
+        <arg name="gui_required" value="$(arg gui_required)" />
     </include>
 
     <group ns="$(arg robot_namespace)">
 
-
         <param name="robot_description" command="$(find xacro)/xacro '$(find my_mobile_robot)/urdf/robot.urdf.xacro'
             --inorder  mesh_enabled:=$(arg mesh_enabled)" />
 
-        <node name="ds_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="  -z 0.0 
+        <node name="ds_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="  -z 0.1 
                         -urdf 
                         -param robot_description 
                         -model $(arg robot_namespace)" />
@@ -43,7 +42,8 @@
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
         </node>
 
-        <node name="rviz" pkg= "rviz" type = "rviz" output="screen" />
+        <!-- <node name="rviz" pkg= "rviz" type = "rviz" output="screen" /> -->
+        <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find my_mobile_robot)/rviz/my_robot_config.rviz" />
 
     </group>
 
