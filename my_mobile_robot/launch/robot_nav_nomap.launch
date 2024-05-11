@@ -61,7 +61,7 @@
 
   <!-- !!!Adjust your laser frame translation!!! -->
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4"
-    args="0.0 0.0 0.2 0.0 0.0 0.0 /base_link /laser_frame 40" /> 
+    args="0.0 0.0 0.2 0.0 0.0 0.0 /base_link /laser_frame 100" /> 
 
   <!-- End Bring up LiDAR -->
 
@@ -138,6 +138,10 @@
     <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
   </node>
 
+  <!-- link odom to base_footprint for odom and mapping -->
+  <node pkg="tf" type="static_transform_publisher" name="odom_to_base_link_broadcaster"
+  args="0 0 0 0 0 0 1 odom base_link 100" />
+  
   <!-- RViz -->
   <node pkg="rviz" type="rviz" name="rviz" required="true"
     args="-d $(find my_mobile_robot)/rviz/navigation.rviz" />
